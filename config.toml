@@ -1,7 +1,8 @@
 [bot]
-ws_uri= ""
+ws_url= ""
 token= ""
 
-[ai]
+[gemini]
+model= ""
 api_uri= ""
 key= ""
