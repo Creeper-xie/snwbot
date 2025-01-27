@@ -1,0 +1,7 @@
+[bot]
+ws_uri= ""
+token= ""
+
+[ai]
+api_uri= ""
+key= ""
