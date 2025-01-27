@@ -12,17 +12,17 @@
 int main(int argc, char** argv) {
   try {
     const toml::table config = toml::parse_file("config.toml");
-    const char* url = config["bot"]["ws_url"].value<std::string>()->data();
+    const std::string url = *config["bot"]["ws_url"].value<std::string>();
     const std::string token = *config["bot"]["token"].value<std::string>();
     MyWebSocketClient ws;
-    ws.connect(url,token);
+    ws.connect(url.data(),token);
 
     std::string str;
     while (std::getline(std::cin, str)) {
         if (str == "close") {
             ws.close();
         } else if (str == "open") {
-            ws.connect(url,token);
+            ws.connect(url.data(),token);
         } else if (str == "stop") {
             ws.stop();
             break;
