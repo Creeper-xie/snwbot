@@ -2,7 +2,7 @@
 ws_url= ""
 token= ""
 
-[gemini]
+[[ai]]
 model= ""
 api_uri= ""
 key= ""
