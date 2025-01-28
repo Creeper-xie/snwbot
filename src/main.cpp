@@ -14,7 +14,7 @@ int main(int argc, char** argv) {
     const toml::table config = toml::parse_file("config.toml");
     const std::string url = *config["bot"]["ws_url"].value<std::string>();
     const std::string token = *config["bot"]["token"].value<std::string>();
-    MyWebSocketClient ws;
+    MyWebSocketClient ws(NULL);
     ws.connect(url.data(),token);
 
     std::string str;
