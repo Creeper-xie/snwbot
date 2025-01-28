@@ -8,7 +8,8 @@ json库：[json](https://github.com/nlohmann/json)
 
 ## 构建
 ``` shell
-g++ -lhv main.cpp
+g++ *.cpp
+g++ *.o -lhv
 ```
 
 
