@@ -1,11 +1,17 @@
 #ifndef MSG_HPP
-#include <functional>
+#include <nlohmann/json.hpp>
 #include <string>
 #include "ws_client.hpp"
 
-void handle(const std::string& msg,const MyWebSocketClient* ws);
-void privateMsg();
-void groupMsg();
+using nlohmann::json;
+using std::string;
 
+// Handle
+void handle(const std::string& msg,MyWebSocketClient* ws);
+
+// 处理 私聊/群聊 消息，再判断消息是否为命令，
+// 是命令就传递给commamd函数
+string privateMsg(json& jsonMsg);
+string groupMsg(json& jsonMsg);
 #define MSG_HPP
 #endif
