@@ -11,7 +11,7 @@ using nlohmann::json;
 using std::string;
 void handle(const string& msg,MyWebSocketClient* ws){
     json jsonMsg = json::parse(std::move(msg));
-    if(jsonMsg["post_type"].get<string>()=="message"){
+    if(jsonMsg.contains("post_type") && jsonMsg["post_type"].get<string>()=="message"){
         string msgData = jsonMsg["raw_message"].get<string>();
     if(!(msgData.at(0) == '>')) return;
         string::size_type n = msgData.find(' ');

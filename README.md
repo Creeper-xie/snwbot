@@ -3,11 +3,8 @@
 试图写一个qqbot，主要是给自己用的（？）
 
 ## 现状
-
-机器人现在只能勉强发消息，发一次消息后会error
-> terminate called after throwing an instance of 'nlohmann::json_abi_v3_11_3::detail::type_error'
->  what():  [json.exception.type_error.302] type must be string, but is null
->zsh: IOT instruction  ./a.out
+（可以用了
+打算后续用异步，在command.cpp加一些命令
 
 ## 依赖
 网络库：[libhv](https://github.com/ithewei/libhv)   

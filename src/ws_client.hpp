@@ -7,7 +7,7 @@ using namespace hv;
 class MyWebSocketClient : public WebSocketClient {
 public:
     
-    MyWebSocketClient(EventLoopPtr loop); 
+    MyWebSocketClient(EventLoopPtr loop = NULL); 
     ~MyWebSocketClient();
 
     int connect(const char* url,std::string token) ;
