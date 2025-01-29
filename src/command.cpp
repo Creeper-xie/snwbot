@@ -1,16 +1,12 @@
-#include <array>
-#include <regex>
 #include <string>
-#include <vector>
 
 using std::string;
-using std::vector;
-using std::regex;
-using std::regex_match;
-using std::smatch;
 
-// 把msg转化为command然后执行，返回string。
-vector<string> msgToComand(string& msg);
-string command(vector<string>& command);
+string command(const string& command,const string& arg){
+   if(command == "自我介绍"){
+        return string("咱是帕酱喵，是来自萌国的猫娘！\n 项目地址： https://codeberg.org/Sniventals/snwbot");
+    }
+    return string("");
+};
 
 
