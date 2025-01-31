@@ -1,8 +1,16 @@
 [bot]
 ws_url= ""
 token= ""
+owner= ""
+
 
 [[ai]]
 model= ""
 api_uri= ""
 key= ""
+
+[exec]
+executable = ""
+
+[setu]
+path = ""
