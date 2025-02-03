@@ -1,8 +1,7 @@
 #include <toml++/toml.hpp>
 
-#include "ws_client.hpp"
 #include "plugin_manage.hpp"
-
+#include "ws_client.hpp"
 
 int main(int argc, char** argv) {
   try {
@@ -13,6 +12,8 @@ int main(int argc, char** argv) {
     ws.connect(url.data(),token);
     map<std::string,apiPtr> plugins;
     map<string,string> commands;
+    ws.commands = &commands;
+    ws.plugins = &plugins;
     fs::path plugins_dir = "plugins";
     for (auto entry : fs::directory_iterator(plugins_dir)){
         if(fs::is_regular_file(entry)){

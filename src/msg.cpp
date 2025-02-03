@@ -1,4 +1,5 @@
 #ifndef MSG_CPP
+#define MSG_CPP
 #include <cstdint>
 #include <string>
 #include <nlohmann/json.hpp>
@@ -33,5 +34,4 @@ void handle(const string& msg,BotWebSocketClient* ws){
         ws-> send(str);
         }
     };
-#define MSG_CPP
 #endif

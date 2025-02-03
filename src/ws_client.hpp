@@ -1,17 +1,22 @@
 #ifndef WS_CLIENT_HPP
+#define WS_CLIENT_HPP
 
 #include <hv/WebSocketClient.h>
+#include <map>
+#include <string>
 
-using namespace hv;
+#include "plugin_api.hpp"
 
-class BotWebSocketClient : public WebSocketClient {
+using apiPtr = boost::shared_ptr<BotPluginApi>;
+class BotWebSocketClient : public hv::WebSocketClient {
 public:
     
-    BotWebSocketClient(EventLoopPtr loop = NULL); 
+    BotWebSocketClient(hv::EventLoopPtr loop = NULL); 
     ~BotWebSocketClient();
 
-    int connect(const char* url,std::string token) ;
+    int connect(const char* url,std::string token);
+    std::map<std::string,std::string>* commands;
+    std::map<string,BotPluginApi>* plugins;
 };
 
-#define WS_CLIENT_HPP
 #endif
