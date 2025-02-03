@@ -1,12 +1,7 @@
-#include <iostream>
-#include <optional>
-#include <string_view>
 #include <toml++/toml.hpp>
-#include <string>
-#include <vector>
 
 #include "ws_client.hpp"
-
+#include "plugin_manage.hpp"
 
 
 int main(int argc, char** argv) {
@@ -14,9 +9,16 @@ int main(int argc, char** argv) {
     const toml::table config = toml::parse_file("config.toml");
     const std::string url = *config["bot"]["ws_url"].value<std::string>();
     const std::string token = *config["bot"]["token"].value<std::string>();
-    MyWebSocketClient ws(NULL);
+    BotWebSocketClient ws(NULL);
     ws.connect(url.data(),token);
-
+    map<std::string,apiPtr> plugins;
+    map<string,string> commands;
+    fs::path plugins_dir = "plugins";
+    for (auto entry : fs::directory_iterator(plugins_dir)){
+        if(fs::is_regular_file(entry)){
+            loadPlugin(plugins,commands,entry);
+            }
+    }
     std::string str;
     while (std::getline(std::cin, str)) {
         if (str == "close") {

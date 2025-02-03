@@ -9,10 +9,10 @@
 
 using namespace hv;
 
-MyWebSocketClient::MyWebSocketClient(EventLoopPtr loop) : WebSocketClient(loop) {}
-MyWebSocketClient::~MyWebSocketClient() {}
+BotWebSocketClient::MyWebSocketClient(EventLoopPtr loop) : WebSocketClient(loop) {}
+BotWebSocketClient::~BotWebSocketClient() {}
 
-int MyWebSocketClient::connect(const char* url,std::string token) {
+int BotWebSocketClient::connect(const char* url,std::string token) {
         // set callbacks
         onopen = [this]() {
             const HttpResponsePtr& resp = getHttpResponse();

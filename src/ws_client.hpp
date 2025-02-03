@@ -4,11 +4,11 @@
 
 using namespace hv;
 
-class MyWebSocketClient : public WebSocketClient {
+class BotWebSocketClient : public WebSocketClient {
 public:
     
-    MyWebSocketClient(EventLoopPtr loop = NULL); 
-    ~MyWebSocketClient();
+    BotWebSocketClient(EventLoopPtr loop = NULL); 
+    ~BotWebSocketClient();
 
     int connect(const char* url,std::string token) ;
 };

@@ -9,11 +9,11 @@
 
 using nlohmann::json;
 using std::string;
-void handle(const string& msg,MyWebSocketClient* ws){
+void handle(const string& msg,BotWebSocketClient* ws){
     json jsonMsg = json::parse(std::move(msg));
     if(jsonMsg.contains("post_type") && jsonMsg["post_type"].get<string>()=="message"){
         string msgData = jsonMsg["raw_message"].get<string>();
-    if(!(msgData.at(0) == '>')) return;
+    if(msgData.empty() || !(msgData.at(0) == '>')) return;
         string::size_type n = msgData.find(' ');
         string result = command(msgData.substr(1,n-1),msgData.substr(n+1));
         if (result.empty()) return;
