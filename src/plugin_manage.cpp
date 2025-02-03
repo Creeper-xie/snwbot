@@ -13,7 +13,11 @@ namespace fs = boost::filesystem;
 using apiPtr = boost::shared_ptr<BotPluginApi>;
 void loadPlugin(std::map<std::string,apiPtr>& plugins,map<string,string>& commands,const fs::path& path){
     auto plugin = boost::dll::import_symbol<BotPluginApi>(path,"plugin",dll::load_mode::append_decorations);
-    plugins[plugin->name] = std::move(plugin);
+    string name = plugin -> name;
+    for(string command : plugin -> commands){
+        commands[command] = name;
+    }
+    plugins[name] = std::move(plugin);
     };
 /**
 int main(int argc, char* argv[]) {
