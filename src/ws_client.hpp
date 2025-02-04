@@ -16,7 +16,7 @@ public:
 
     int connect(const char* url,std::string token);
     std::map<std::string,std::string>* commands;
-    std::map<string,BotPluginApi>* plugins;
+    std::map<string,apiPtr>* plugins;
 };
 
 #endif

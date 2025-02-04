@@ -1,7 +1,10 @@
 #include <string>
 
-using std::string;
+#include "plugin_api.hpp"
 
-string command(const string& command,const string& arg);
+using std::string;
+using apiPtr = boost::shared_ptr<BotPluginApi>;
+
+string command(const string& command,const string& arg,map<string,apiPtr>* plugins,map<string,string>* commands);
 
 

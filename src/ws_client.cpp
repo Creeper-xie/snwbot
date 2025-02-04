@@ -9,7 +9,7 @@
 
 using namespace hv;
 
-BotWebSocketClient::MyWebSocketClient(EventLoopPtr loop) : WebSocketClient(loop) {}
+BotWebSocketClient::BotWebSocketClient(EventLoopPtr loop) : WebSocketClient(loop) {}
 BotWebSocketClient::~BotWebSocketClient() {}
 
 int BotWebSocketClient::connect(const char* url,std::string token) {

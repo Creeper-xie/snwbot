@@ -17,7 +17,7 @@ int main(int argc, char** argv) {
     fs::path plugins_dir = "plugins";
     for (auto entry : fs::directory_iterator(plugins_dir)){
         if(fs::is_regular_file(entry)){
-            loadPlugin(plugins,commands,entry);
+            loadPlugin(plugins,commands,entry,ws);
             }
     }
     std::string str;

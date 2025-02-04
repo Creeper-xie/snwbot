@@ -16,7 +16,7 @@ void handle(const string& msg,BotWebSocketClient* ws){
         string msgData = jsonMsg["raw_message"].get<string>();
     if(msgData.empty() || !(msgData.at(0) == '>')) return;
         string::size_type n = msgData.find(' ');
-        string result = command(msgData.substr(1,n-1),msgData.substr(n+1));
+        string result = command(msgData.substr(1,n-1),msgData.substr(n+1),ws->plugins,ws->commands);
         if (result.empty()) return;
         json sendMsg;
         sendMsg["action"] = "send_msg";
