@@ -1,3 +1,4 @@
+#include <ostream>
 #include <string>
 #include "command.hpp"
 using std::string;

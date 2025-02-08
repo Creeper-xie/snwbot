@@ -15,12 +15,14 @@ namespace fs = boost::filesystem;
 using apiPtr = boost::shared_ptr<BotPluginApi>;
 void loadPlugin(std::map<std::string,apiPtr>& plugins,map<string,string>& commands,const fs::path& path,BotWebSocketClient& ws){
     auto plugin = boost::dll::import_symbol<BotPluginApi>(path,"plugin",dll::load_mode::append_decorations);
-    string name = plugin -> name;
-    for(string command : plugin -> commands){
-        commands[command] = name;
-    }
     std::function<void(string)> _send = [&ws](string str){ws.send(str);};
     plugin->init(&_send,&plugins);
+    string name = plugin -> name;
+    cout << "加载插件：" << name <<std::endl;
+    for(string command : plugin -> commands){
+        cout << "plugin_command:" << command << std::endl;
+        commands[command] = name;
+    }
     plugins[name] = std::move(plugin);
     };
 /**
