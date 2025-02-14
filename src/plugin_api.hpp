@@ -22,6 +22,7 @@ public:
     virtual string execute(string) =0;
     string name;
     string author;
+    int version[2];
     toml::table config;
     std::vector<string> commands;
     std::function<void(string)>* send;

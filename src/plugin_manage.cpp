@@ -13,9 +13,9 @@ namespace dll = boost::dll;
 namespace fs = boost::filesystem;
 
 using apiPtr = boost::shared_ptr<BotPluginApi>;
-void loadPlugin(std::map<std::string,apiPtr>& plugins,map<string,string>& commands,const fs::path& path,Bot& ws){
+void load_plugin(std::map<std::string,apiPtr>& plugins,map<string,string>& commands,const fs::path& path,Bot& bot){
     auto plugin = boost::dll::import_symbol<BotPluginApi>(path,"plugin",dll::load_mode::append_decorations);
-    std::function<void(string)> _send = [&ws](string str){ws.send(str);};
+    std::function<void(string)> _send = [&bot](string str){bot.send(str);};
     plugin->init(&_send,&plugins);
     string name = plugin -> name;
     cout << "加载插件：" << name <<std::endl;

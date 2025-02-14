@@ -11,4 +11,4 @@ namespace dll = boost::dll;
 namespace fs = boost::filesystem;
 
 using apiPtr = boost::shared_ptr<BotPluginApi>;
-void loadPlugin(std::map<std::string,apiPtr>& plugins,std::map<string,string>& commands,const fs::path& path,Bot& ws);
+void load_plugin(std::map<std::string,apiPtr>& plugins,std::map<string,string>& commands,const fs::path& path,Bot& bot);

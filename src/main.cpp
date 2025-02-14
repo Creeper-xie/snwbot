@@ -6,32 +6,32 @@
 int main(int argc, char** argv) {
   try {
     const toml::table config = toml::parse_file("config.toml");
-    const std::string url = *config["bot"]["ws_url"].value<std::string>();
+    const std::string url = *config["bot"]["bot_url"].value<std::string>();
     const std::string token = *config["bot"]["token"].value<std::string>();
-    Bot ws(NULL);
-    ws.connect(url.data(),token);
+    Bot bot(NULL);
+    bot.connect(url.data(),token);
     map<std::string,apiPtr> plugins;
     map<string,string> commands;
-    ws.commands = &commands;
-    ws.plugins = &plugins;
+    bot.commands = &commands;
+    bot.plugins = &plugins;
     fs::path plugins_dir = "plugins";
     for (auto entry : fs::directory_iterator(plugins_dir)){
         if(fs::is_regular_file(entry)){
-            loadPlugin(plugins,commands,entry,ws);
+            load_plugin(plugins,commands,entry,bot);
             }
     }
     std::string str;
     while (std::getline(std::cin, str)) {
         if (str == "close") {
-            ws.close();
+            bot.close();
         } else if (str == "open") {
-            ws.connect(url.data(),token);
+            bot.connect(url.data(),token);
         } else if (str == "stop") {
-            ws.stop();
+            bot.stop();
             break;
         } else {
-            if (!ws.isConnected()) break;
-            ws.send(str);
+            if (!bot.isConnected()) break;
+            bot.send(str);
         }
     }
     } catch (const toml::parse_error& err) {
