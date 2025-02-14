@@ -6,7 +6,7 @@
 int main(int argc, char** argv) {
   try {
     const toml::table config = toml::parse_file("config.toml");
-    const std::string url = *config["bot"]["bot_url"].value<std::string>();
+    const std::string url = *config["bot"]["ws_url"].value<std::string>();
     const std::string token = *config["bot"]["token"].value<std::string>();
     Bot bot(NULL);
     bot.connect(url.data(),token);
