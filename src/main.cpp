@@ -1,14 +1,14 @@
 #include <toml++/toml.hpp>
 
 #include "plugin_manage.hpp"
-#include "ws_client.hpp"
+#include "bot.hpp"
 
 int main(int argc, char** argv) {
   try {
     const toml::table config = toml::parse_file("config.toml");
     const std::string url = *config["bot"]["ws_url"].value<std::string>();
     const std::string token = *config["bot"]["token"].value<std::string>();
-    BotWebSocketClient ws(NULL);
+    Bot ws(NULL);
     ws.connect(url.data(),token);
     map<std::string,apiPtr> plugins;
     map<string,string> commands;

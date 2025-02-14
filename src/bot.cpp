@@ -1,18 +1,17 @@
-#ifndef WS_CLIENT_CPP
+#ifndef BOT_CPP
 
 #include <hv/WebSocketClient.h>
 #include <nlohmann/json.hpp>
 #include <toml++/toml.hpp>
 
-#include "ws_client.hpp"
-#include "msg.hpp"
+#include "bot.hpp"
 
-using namespace hv;
+using json = nlohmann::json;
 
-BotWebSocketClient::BotWebSocketClient(EventLoopPtr loop) : WebSocketClient(loop) {}
-BotWebSocketClient::~BotWebSocketClient() {}
+Bot::Bot(hv::EventLoopPtr loop) : WebSocketClient(loop) {}
+Bot::~Bot() {}
 
-int BotWebSocketClient::connect(const char* url,std::string token) {
+int Bot::connect(const char* url,std::string token) {
         // set callbacks
         onopen = [this]() {
             const HttpResponsePtr& resp = getHttpResponse();
@@ -42,13 +41,13 @@ int BotWebSocketClient::connect(const char* url,std::string token) {
         headers["Authorization"] = "Bearer " + token;
         return open(url, headers);
     };
-void BotWebSocketClient::handle(const string& msg,BotWebSocketClient* ws){
+void Bot::handle(const string& msg){
     json jsonMsg = json::parse(std::move(msg));
     if(jsonMsg.contains("post_type") && jsonMsg["post_type"].get<string>()=="message"){
         string msgData = jsonMsg["raw_message"].get<string>();
     if(msgData.empty() || !(msgData.at(0) == '>')) return;
         string::size_type n = msgData.find(' ');
-        string result = command(msgData.substr(1,n-1),msgData.substr(n+1),ws->plugins,ws->commands);
+        string result = command(msgData.substr(1,n-1),msgData.substr(n+1),this->plugins,this->commands);
         if (result.empty()) return;
         json sendMsg;
         sendMsg["action"] = "send_msg";
@@ -63,12 +62,12 @@ void BotWebSocketClient::handle(const string& msg,BotWebSocketClient* ws){
         sendMsg["params"]["message"][0]["data"]["text"] = result;
         string str=sendMsg.dump();
         printf("%s\n",str.data());
-        ws-> send(str);
+        this-> send(str);
         }
     };
 
 
-string BotWebSocketClient::command(const string& command,const string& arg,map<string,apiPtr>* plugins,map<string,string>* commands){
+string Bot::command(const string& command,const string& arg,map<string,apiPtr>* plugins,map<string,string>* commands){
    if(commands->contains(command)){
         return ((*plugins)[(*commands)[command]] -> execute(command));
     }

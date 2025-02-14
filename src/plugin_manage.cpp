@@ -13,7 +13,7 @@ namespace dll = boost::dll;
 namespace fs = boost::filesystem;
 
 using apiPtr = boost::shared_ptr<BotPluginApi>;
-void loadPlugin(std::map<std::string,apiPtr>& plugins,map<string,string>& commands,const fs::path& path,BotWebSocketClient& ws){
+void loadPlugin(std::map<std::string,apiPtr>& plugins,map<string,string>& commands,const fs::path& path,Bot& ws){
     auto plugin = boost::dll::import_symbol<BotPluginApi>(path,"plugin",dll::load_mode::append_decorations);
     std::function<void(string)> _send = [&ws](string str){ws.send(str);};
     plugin->init(&_send,&plugins);
