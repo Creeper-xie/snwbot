@@ -20,7 +20,7 @@ int Bot::connect(const char* url,std::string token) {
         onmessage = [this](const std::string& msg) {
             printf("onmessage(type=%s len=%d): %.*s\n", opcode() == WS_OPCODE_TEXT ? "text" : "binary",
                 (int)msg.size(), (int)msg.size(), msg.data());
-                handle(msg,this);
+                handle(msg);
         };
         onclose = []() {
             printf("onclose\n");
