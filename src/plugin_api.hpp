@@ -10,23 +10,22 @@
 #include <string>
 #include <vector>
 
+#include "bot.hpp"
 
-using std::string;
-using std::map;
-using std::cout;
 
 class BOOST_SYMBOL_VISIBLE BotPluginApi {
 public:
     virtual ~BotPluginApi() = default;
-    virtual void init(std::function<void(string)>* send,map<string,boost::shared_ptr<BotPluginApi>>* plugins) =0;
-    virtual string execute(string) =0;
-    string name;
-    string author;
+    virtual void init(Bot& bot) =0;
+    virtual std::string execute(std::string) =0;
+    Bot bot;
+    std::string name;
+    std::string author;
     int version[2];
     toml::table config;
-    std::vector<string> commands;
-    std::function<void(string)>* send;
-    map<string,boost::shared_ptr<BotPluginApi>>* plugins;
+    std::vector<std::string> commands;
+    std::function<void(std::string)>* send;
+    std::map<std::string,boost::shared_ptr<BotPluginApi>>* plugins;
 };
    
 #endif

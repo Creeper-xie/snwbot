@@ -7,7 +7,8 @@
 #include "bot.hpp"
 
 using json = nlohmann::json;
-
+using std::string;
+using std::map;
 Bot::Bot(hv::EventLoopPtr loop) : WebSocketClient(loop) {}
 Bot::~Bot() {}
 
@@ -65,6 +66,8 @@ void Bot::handle(const string& msg){
         this-> send(str);
         }
     };
+void send_msg(nlohmann::json& reqMsg){
+    }
 
 
 string Bot::command(const string& command,const string& arg,map<string,apiPtr>* plugins,map<string,string>* commands){
