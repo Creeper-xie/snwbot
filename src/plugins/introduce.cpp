@@ -1,7 +1,9 @@
 #include "plugin_api.hpp"
 
+using std::string;
+using std::map;
 class introduce : public BotPluginApi{
-    void init(std::function<void (string)> *send, map<string, boost::shared_ptr<BotPluginApi>> *plugins) override {
+    void init(Bot& bot) override {
         commands.push_back("自我介绍");
         name = "introduce";
     }

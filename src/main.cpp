@@ -1,6 +1,5 @@
 #include <toml++/toml.hpp>
 
-#include "plugin_manage.hpp"
 #include "bot.hpp"
 
 int main(int argc, char** argv) {
@@ -10,14 +9,10 @@ int main(int argc, char** argv) {
     const std::string token = *config["bot"]["token"].value<std::string>();
     Bot bot(NULL);
     bot.connect(url.data(),token);
-    map<std::string,apiPtr> plugins;
-    map<string,string> commands;
-    bot.commands = &commands;
-    bot.plugins = &plugins;
     fs::path plugins_dir = "plugins";
     for (auto entry : fs::directory_iterator(plugins_dir)){
         if(fs::is_regular_file(entry)){
-            load_plugin(plugins,commands,entry,bot);
+            bot.load_plugin(entry);
             }
     }
     std::string str;

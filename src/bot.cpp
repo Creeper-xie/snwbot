@@ -9,6 +9,7 @@
 using json = nlohmann::json;
 using std::string;
 using std::map;
+using std::cout;
 Bot::Bot(hv::EventLoopPtr loop) : WebSocketClient(loop) {}
 Bot::~Bot() {}
 
@@ -48,7 +49,7 @@ void Bot::handle(const string& msg){
         string msgData = jsonMsg["raw_message"].get<string>();
     if(msgData.empty() || !(msgData.at(0) == '>')) return;
         string::size_type n = msgData.find(' ');
-        string result = command(msgData.substr(1,n-1),msgData.substr(n+1),this->plugins,this->commands);
+  string result = command(msgData.substr(1,n-1),msgData.substr(n+1));
         if (result.empty()) return;
         json sendMsg;
         sendMsg["action"] = "send_msg";
@@ -66,13 +67,24 @@ void Bot::handle(const string& msg){
         this-> send(str);
         }
     };
-void send_msg(nlohmann::json& reqMsg){
+void Bot::send_msg(nlohmann::json& reqMsg){
     }
+void Bot::load_plugin(const fs::path& path){
+    auto plugin = boost::dll::import_symbol<BotPluginApi>(path,"plugin",dll::load_mode::append_decorations);
+    plugin->init(this);
+    string name = plugin -> name;
+    cout << "加载插件：" << name <<std::endl;
+    for(string command : plugin -> commands){
+        cout << "plugin_command:" << command << std::endl;
+        this->commands[command] = name;
+    }
+    plugins[name] = std::move(plugin);
+    };
 
 
-string Bot::command(const string& command,const string& arg,map<string,apiPtr>* plugins,map<string,string>* commands){
-   if(commands->contains(command)){
-        return ((*plugins)[(*commands)[command]] -> execute(command));
+string Bot::command(const string& command,const string& arg){
+   if(this->commands.contains(command)){
+        return ((this->plugins)[(this->commands)[command]] -> execute(command));
     }
     return string("");
 };
