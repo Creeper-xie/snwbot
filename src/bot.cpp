@@ -14,6 +14,7 @@ Bot::Bot(hv::EventLoopPtr loop) : WebSocketClient(loop) {}
 Bot::~Bot() {}
 
 int Bot::connect(const char* url,std::string token) {
+
         // set callbacks
         onopen = [this]() {
             const HttpResponsePtr& resp = getHttpResponse();

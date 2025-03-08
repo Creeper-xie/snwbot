@@ -1,3 +1,8 @@
+# 为clangd创建的compile_commands.json符号链接
+compile_commands.json
+# clangd缓存目录
+.cache/
+
 test
 
 *.out

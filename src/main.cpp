@@ -1,4 +1,5 @@
 #include <toml++/toml.hpp>
+#include <boost/filesystem.hpp>
 
 #include "bot.hpp"
 

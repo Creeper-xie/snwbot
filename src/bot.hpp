@@ -5,11 +5,15 @@
 #include <map>
 #include <string>
 
+class Bot;
+
 #include "plugin_api.hpp"
 
 namespace dll = boost::dll;
 namespace fs = boost::filesystem;
+
 using apiPtr = boost::shared_ptr<BotPluginApi>;
+
 class Bot : public hv::WebSocketClient {
 public:
     
