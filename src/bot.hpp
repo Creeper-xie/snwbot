@@ -9,9 +9,6 @@ class Bot;
 
 #include "plugin_api.hpp"
 
-namespace dll = boost::dll;
-namespace fs = boost::filesystem;
-
 using apiPtr = boost::shared_ptr<BotPluginApi>;
 
 class Bot : public hv::WebSocketClient {
@@ -23,7 +20,7 @@ public:
     int connect(const char* url,std::string token);
     void handle(const std::string& msg);
 std::string command(const std::string& command,const std::string& arg);
-    void load_plugin(const fs::path& path);
+    void load_plugin(const boost::filesystem::path& path);
     void send_msg(nlohmann::json& reqMsg);
     std::map<std::string,std::string> commands;
     std::map<std::string,apiPtr> plugins;

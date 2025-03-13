@@ -6,6 +6,9 @@
 
 #include "bot.hpp"
 
+namespace dll = boost::dll;
+namespace fs = boost::filesystem;
+
 using json = nlohmann::json;
 using std::string;
 using std::map;

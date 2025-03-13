@@ -3,6 +3,9 @@ compile_commands.json
 # clangd缓存目录
 .cache/
 
+# libhv日志
+libhv.*.log
+
 test
 
 *.out
