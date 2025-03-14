@@ -3,7 +3,7 @@
 using std::string;
 using std::map;
 class introduce : public BotPluginApi{
-    void init(Bot* bot) {
+    void init(Bot* bot) override {
         commands.push_back("自我介绍");
         name = "introduce";
     }
