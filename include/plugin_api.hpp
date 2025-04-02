@@ -9,8 +9,7 @@
 #include <string>
 #include <vector>
 
-#include "bot.hpp"
-
+class Bot;
 
 class BOOST_SYMBOL_VISIBLE BotPluginApi {
 public:

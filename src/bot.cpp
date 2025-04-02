@@ -6,6 +6,9 @@
 
 #include "bot.hpp"
 
+namespace dll = boost::dll;
+namespace fs = boost::filesystem;
+
 using json = nlohmann::json;
 using std::string;
 using std::map;
@@ -14,6 +17,7 @@ Bot::Bot(hv::EventLoopPtr loop) : WebSocketClient(loop) {}
 Bot::~Bot() {}
 
 int Bot::connect(const char* url,std::string token) {
+
         // set callbacks
         onopen = [this]() {
             const HttpResponsePtr& resp = getHttpResponse();
