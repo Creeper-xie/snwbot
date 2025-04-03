@@ -1,2 +1,2 @@
-plugins_dir = ""
-data_dir= ""
+plugins_dir = "/usr/local/lib/snwbot/plugins/"
+data_dir= "data"
