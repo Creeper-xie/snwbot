@@ -1,5 +1,6 @@
+inc = include_directories('include')
 executable('snwbot', 'main.cpp', 'bot.cpp',
-  include_directories: inc,
+  include_directories : inc,
   dependencies : [boost_dep, hv_dep, nlohmann_json_dep],
   install : true,
   install_dir : 'lib/snwbot')
