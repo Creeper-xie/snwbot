@@ -14,7 +14,7 @@ string config_path;
 
 int main(int argc, char** argv) {
   try {
-    if (argv[1] == "-c"){
+    if ( agrc == 3 && argv[1] == "-c"){
         config_path = argv[2];
     } else {
         config_path = "snwbot_config.toml";
