@@ -1,3 +1,5 @@
+#include <iostream>
+#include <ostream>
 #include <string>
 #include <toml++/toml.hpp>
 #include <boost/filesystem.hpp>
@@ -14,16 +16,13 @@ string config_path;
 
 int main(int argc, char** argv) {
   try {
-    if ( argc == 3 && argv[1] == "-c"){
+    if ( argc == 3 && string(argv[1]) == "-c"){
         config_path = argv[2];
     } else {
         config_path = "snwbot_config.toml";
     }
     const toml::table config = toml::parse_file(config_path);
-    const string url = *config["ws_url"].value<std::string>();
-    const string token = *config["token"].value<std::string>();
-    Bot bot(NULL);
-    bot.connect(url.data(),token);
+    Bot bot;
 
     const fs::path plugins_dir = *config["plugins_dir"].value<std::string>();
     for (auto &entry : fs::directory_iterator(plugins_dir)) {
@@ -34,18 +33,11 @@ int main(int argc, char** argv) {
 
     string str;
     while (std::getline(std::cin, str)) {
-        if (str == "close") {
-            bot.close();
-        } else if (str == "open") {
-            bot.connect(url.data(),token);
-        } else if (str == "stop") {
-            bot.stop();
-            break;
-        } else {
-            if (!bot.isConnected()) break;
-            bot.send(str);
+            if (bot.plugins.contains("exec_command")){
+                std::cout << bot.plugins["exec_command"] -> execute(str) << std::endl;
+            }
         }
-    }
+    
     } catch (const toml::parse_error& err) {
         std::cerr << err << std::endl;
     }
